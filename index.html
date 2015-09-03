@@ -1,0 +1,251 @@
+<!-- 
+	
+	On touch, all sub-menus to appear by checkbox, instead of hover. 
+	
+	To do: 
+		
+		- reset input over checked triggers, to uncheck them all 
+		
+		- inline-block container font-size 0 
+
+-->
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=1">
+
+<style>
+	
+	nav.drop * {
+		
+		box-sizing: border-box;
+		-webkit-touch-callout: none;
+		-webkit-user-select: none;
+		-khtml-user-select: none;
+		-moz-user-select: none;
+		-ms-user-select: none;
+		user-select: none;
+
+	}
+
+	nav.drop ul, nav.drop li {
+		
+		margin: 0;
+		padding: 0;
+
+	} 
+
+	nav.drop ul li {
+		
+		display: inline-block;
+		vertical-align: top;
+		white-space: nowrap;
+		position: relative;
+		
+	}
+
+	nav.drop ul li a {
+		
+		padding: 1em;
+		white-space: nowrap;
+		background: #eee;
+		display: block;
+		
+	}
+	
+	nav.drop li span {
+		
+		background: #eee;
+		padding: 1em;
+		display: inline-block;
+		width: 100%;
+
+	}
+
+	nav.drop ul ul li {
+		
+		display: block;
+		padding: 0;
+		
+	}
+
+	nav.drop ul ul {
+		
+		height: 0;
+		overflow: hidden;
+		position: absolute;
+		
+	}
+
+	nav.drop input:checked ~ ul { /* Not '+', because the form reset button stands between them */
+		
+		overflow: visible;
+		
+	}
+	
+	body:not(.touch) nav.drop ul ul li:hover ul { /* Desktop second */
+		
+		overflow: visible;
+		
+	}
+
+/*
+	nav.drop li:hover ul ul {
+		
+		overflow: hidden;
+		
+	}
+
+	nav.drop li:hover ul li:hover ul {
+		
+		overflow: visible;
+		
+	}
+*/
+
+	nav.drop ul ul ul {
+		
+		display: inline-block;
+		vertical-align: top;
+		margin-left: -.3em; /* Temporary until inline-block font-size is zeroed. */
+		
+	}
+
+	nav.drop ul ul ul li {
+		
+		display: block;
+		
+	}
+	
+	input[type=checkbox].trigger {
+		
+		position: absolute;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		border: 0;
+		margin: 0;
+		opacity: 0;
+		cursor: pointer;
+
+	}
+
+</style>
+
+<header>
+	
+	<nav class="drop">
+		
+		<ul>
+			
+			<li> 
+			
+				<span>Top One</span>
+			
+				<input type="checkbox" class="trigger">
+			
+				<ul>
+					
+					<li> 
+					
+						<span>Middle One (Longer)</span>
+					
+						<input type="checkbox" class="trigger">
+			
+						<ul>
+							
+							<li> 
+								
+								<a href="#">One Bottom One</a>
+							
+							</li>
+							
+							<li> 
+								
+								<a href="#">One Bottom Two</a>
+							
+							</li>
+						
+						</ul>
+					
+					</li>
+				
+					<li> 
+					
+						<span>Middle Two</span>
+					
+						<input type="checkbox" class="trigger">
+			
+						<ul>
+							
+							<li> 
+								
+								<a href="#">Two Bottom One</a>
+							
+							</li>
+							
+							<li> 
+								
+								<a href="#">Two Bottom Two</a>
+							
+							</li>
+						
+						</ul>
+					
+					</li>
+				
+				</ul>
+			
+			</li>
+
+			<li> 
+			
+				<span>Top Two</span>
+			
+				<input type="checkbox" class="trigger">
+
+				<ul>
+					
+					<li> 
+					
+						<span>Middle Two</span>
+					
+						<input type="checkbox" class="trigger">
+
+						<ul>
+							
+							<li> 
+								
+								<a href="#">Bottom One</a>
+							
+							</li>
+							
+							<li> 
+								
+								<a href="#">Bottom Two</a>
+							
+							</li>
+						
+						</ul>
+					
+					</li>
+				
+				</ul>
+				
+			</li>
+		
+		</ul>
+		
+	</nav>
+	
+	<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+
+</header>
+
+<script>
+	
+if ('ontouchstart' in window) { // For touch devices CSS
+
+	document.querySelector('body').classList.add('touch');
+
+}
+
+</script>
