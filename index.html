@@ -3,13 +3,24 @@
 	On touch, all sub-menus to appear by checkbox, instead of hover. 
 	
 	To do: 
+	
+		- visibility instead of display, to help pointing to level 3
+	
+		- test many 2nd level items tap on iPad 
 		
-		- reset input over checked triggers, to uncheck them all 
+		- √ triggers to radio inputs; reset input over checked triggers, to uncheck them all 
 		
-		- inline-block container font-size 0 
+		- fallback for triggers on old browsers
 
+		- √ inline-block container font-size 0 
+		
+		- hamburger
+		
+		- ensure wider/taller menus than viewport/screen
+		
 -->
 
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=1">
 
 <style>
@@ -23,6 +34,12 @@
 		-moz-user-select: none;
 		-ms-user-select: none;
 		user-select: none;
+
+	}
+	
+	nav.drop ul {
+		
+		font-size: 0;
 
 	}
 
@@ -39,6 +56,7 @@
 		vertical-align: top;
 		white-space: nowrap;
 		position: relative;
+		font-size: 1rem;
 		
 	}
 
@@ -75,7 +93,7 @@
 		
 	}
 
-	nav.drop input:checked ~ ul { /* Not '+', because the form reset button stands between them */
+	nav.drop input.trigger:checked ~ ul { /* Not '+', because the form reset button stands between them */
 		
 		overflow: visible;
 		
@@ -105,7 +123,6 @@
 		
 		display: inline-block;
 		vertical-align: top;
-		margin-left: -.3em; /* Temporary until inline-block font-size is zeroed. */
 		
 	}
 
@@ -115,16 +132,31 @@
 		
 	}
 	
-	input[type=checkbox].trigger {
+	input.trigger, input.trigger ~ input[type=reset] {
 		
 		position: absolute;
 		left: 0;
+		top: 0;
 		width: 100%;
 		height: 100%;
 		border: 0;
 		margin: 0;
 		opacity: 0;
 		cursor: pointer;
+		-webkit-appearance: none;
+		border-radius: 0;
+
+	}
+	
+	input.trigger ~ input[type=reset] {
+		
+		display: none;
+
+	}
+
+	input.trigger:checked ~ input[type=reset] {
+		
+		display: block;
 
 	}
 
@@ -134,13 +166,18 @@
 	
 	<nav class="drop">
 		
+		<form id="level1"> </form>
+		<form id="level2"> </form>
+
 		<ul>
 			
 			<li> 
 			
 				<span>Top One</span>
 			
-				<input type="checkbox" class="trigger">
+				<input type="radio" class="trigger" form="level1" name="level1">
+
+				<input type="reset" form="level1">
 			
 				<ul>
 					
@@ -148,7 +185,9 @@
 					
 						<span>Middle One (Longer)</span>
 					
-						<input type="checkbox" class="trigger">
+						<input type="radio" class="trigger" form="level2" name="level2">
+			
+						<input type="reset" form="level2">
 			
 						<ul>
 							
@@ -172,7 +211,9 @@
 					
 						<span>Middle Two</span>
 					
-						<input type="checkbox" class="trigger">
+						<input type="radio" class="trigger" form="level2" name="level2">
+			
+						<input type="reset" form="level2">
 			
 						<ul>
 							
@@ -200,16 +241,20 @@
 			
 				<span>Top Two</span>
 			
-				<input type="checkbox" class="trigger">
+				<input type="radio" class="trigger" form="level1" name="level1">
 
+				<input type="reset" form="level1">
+			
 				<ul>
 					
 					<li> 
 					
 						<span>Middle Two</span>
 					
-						<input type="checkbox" class="trigger">
-
+						<input type="radio" class="trigger" form="level2" name="level2">
+			
+						<input type="reset" form="level2">
+			
 						<ul>
 							
 							<li> 
