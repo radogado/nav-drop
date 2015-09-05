@@ -93,19 +93,19 @@
 		
 	}
 
-	body:not(.touch) nav.drop ul ul li {
+	.no-touch nav.drop ul ul li {
 		
 		position: static;
 		
 	}
 
-	body:not(.touch) nav.drop ul ul li input.trigger {
+	.no-touch nav.drop ul ul li input.trigger {
 		
 		display: none;
 		
 	}
 
-	body:not(.touch) nav.drop ul ul li:first-child {
+	.no-touch nav.drop ul ul li:first-child {
 		
 		position: relative;		
 		
@@ -120,9 +120,15 @@
 		
 	}
 
-	nav.drop input.trigger:checked ~ ul, body:not(.touch) nav.drop ul ul li:hover ul { /* Not '+', because the form reset button stands between them; Touch first, Desktop second */
+	nav.drop input.trigger:checked ~ ul, .no-touch nav.drop ul ul li:hover ul { /* Not '+', because the form reset button stands between them; Touch first, Desktop second */
 		
 		visibility: visible;
+		
+	}
+	
+	nav.drop input.trigger:not(:checked) ~ ul input.trigger:checked ~ ul {
+		
+		visibility: hidden;
 		
 	}
 	
@@ -135,7 +141,7 @@
 		
 	}
 
-	body:not(.touch) nav.drop ul ul ul {
+	.no-touch nav.drop ul ul ul {
 		
 		opacity: 0;
 		top: 0;
@@ -143,7 +149,7 @@
 		
 	}
 
-	body:not(.touch) nav.drop ul ul li:hover ul {
+	.no-touch nav.drop ul ul li:hover ul {
 		
 		visibility: visible;
 		opacity: 1;
@@ -316,9 +322,9 @@
 
 <script>
 	
-if ('ontouchstart' in window) { // For touch devices CSS
+if (!('ontouchstart' in window)) { // For no-touch devices CSS
 
-	document.querySelector('body').classList.add('touch');
+	document.querySelector('body').classList.add('no-touch');
 
 }
 
