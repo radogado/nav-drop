@@ -35,6 +35,13 @@
 
 <style>
 	
+	body {
+		
+		max-width: 75em;
+		margin: 1em auto;
+		
+	}
+	
 	nav.drop * {
 		
 		box-sizing: border-box;
@@ -154,6 +161,7 @@
 	nav.drop input.trigger:checked ~ ul, .no-touch nav.drop ul ul li:hover ul { /* Not '+', because the form reset button stands between them; Touch first, Desktop second */
 		
 		visibility: visible;
+		z-index: 2;
 		
 	}
 	
@@ -240,7 +248,7 @@
 
 				<input type="reset" form="level1">
 			
-				<a>Top One</a>
+				<a>Top One Long Text Long Text Long Text Long Text Long Text </a>
 			
 				<ul>
 					
@@ -306,7 +314,7 @@
 
 				<input type="reset" form="level1">
 			
-				<a>Top Two</a>
+				<a>Top Two Long Text Long Text Long Text Long Text </a>
 			
 				<ul>
 					
