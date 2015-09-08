@@ -14,7 +14,7 @@
 
 		- √ inline-block container font-size 0 
 		
-		- hamburger
+		- √ hamburger
 		
 		- ensure wider/taller menus than viewport/screen
 		
@@ -39,7 +39,14 @@
 		
 		max-width: 75em;
 		margin: 1em auto;
+		padding: 1em;
 		
+	}
+	
+	nav.drop {
+		
+		position: relative;
+
 	}
 	
 	nav.drop * {
@@ -118,6 +125,12 @@
 
 	}
 
+	nav.drop ul li li a[href]:after {
+		
+		display: none;		
+
+	}
+
 	nav.drop ul li li li a:after {
 		
 		display: none;
@@ -165,7 +178,7 @@
 		
 	}
 	
-	nav.drop input.trigger:not(:checked) ~ ul input.trigger:checked ~ ul {
+	nav.drop input.trigger:not(.burger):not(:checked) ~ ul input.trigger:checked ~ ul {
 		
 		visibility: hidden;
 		
@@ -216,6 +229,7 @@
 		-webkit-appearance: none;
 		border-radius: 0;
 		z-index: 1;
+		padding: 0;
 
 	}
 	
@@ -230,6 +244,119 @@
 		display: block;
 
 	}
+	
+	input.trigger.burger {
+		
+		display: none;
+		
+	}
+	
+	form#level1, form#level2 {
+		
+		display: none;
+
+	}
+	
+	@media screen and (max-width: 640px) {
+	
+		input.trigger.burger {
+			
+			display: inline-block;
+			width: 2em;
+			
+		}
+
+		input.trigger.burger ~ ul {
+			
+			display: none;
+			
+		}
+
+		input.trigger.burger:checked ~ ul {
+			
+			display: block;
+			
+		}
+		
+		nav.drop {
+			
+			width: auto;
+			height: 2em;
+			text-align: left;
+			display: inline-block;
+
+		}
+		
+		nav.drop:before {
+			
+			content: '🍔';
+		
+		}
+		
+		nav.drop ul li {
+			
+			width: 100%;
+
+		}
+		
+		nav.drop ul li a {
+			
+			white-space: normal;
+
+		}
+		
+		nav.drop input.trigger:checked ~ ul ul {
+			
+			width: 100%;
+			position: relative;
+			left: 0;
+
+		}
+		
+		nav.drop ul ul {
+			
+			display: none;
+
+		}
+
+		nav.drop ul .trigger:checked ~ ul {
+			
+			display: block;
+
+		}
+
+		nav.drop ul .trigger:not(:checked) ~ ul {
+			
+			display: none;
+
+		}
+
+		.no-touch nav.drop ul li:hover .trigger:not(:checked) ~ ul {
+			
+			display: none;
+
+		}
+		
+		.no-touch nav.drop ul ul li input.trigger {
+			
+			display: block;
+			
+		}
+		
+		.no-touch nav.drop ul ul ul {
+			
+			opacity: 1;
+			
+		}
+		
+		.no-touch nav.drop ul ul li {
+			
+			position: relative;
+
+		}
+
+	}
+	
 
 </style>
 
@@ -239,6 +366,8 @@
 		
 		<form id="level1"> </form>
 		<form id="level2"> </form>
+
+		<input type="checkbox" class="trigger burger">
 
 		<ul>
 			
@@ -341,6 +470,32 @@
 							</li>
 						
 						</ul>
+					
+					</li>
+				
+				</ul>
+				
+			</li>
+
+			<li> 
+			
+				<input type="radio" class="trigger" form="level1" name="level1">
+
+				<input type="reset" form="level1">
+			
+				<a>Just 2 Levels</a>
+			
+				<ul>
+					
+					<li> 
+					
+						<a href=#>2 Levels One</a>
+					
+					</li>
+
+					<li> 
+					
+						<a href=#>2 Levels One Two</a>
 					
 					</li>
 				
