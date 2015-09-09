@@ -28,6 +28,12 @@
 		
 		- √ background
 		
+		- support for both a link and a sub-nav parent
+		
+		- clean up code
+		
+		- animation
+		
 -->
 
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -86,7 +92,7 @@
 
 	nav.drop ul li a {
 		
-		padding: 1em 2em 1em 1em;
+		padding: 1em;
 		white-space: nowrap;
 		display: block;
 		position: relative;
@@ -94,6 +100,7 @@
 		
 	}
 	
+/*
 	nav.drop ul li a:after {
 		
 		content: 'ˇ';
@@ -103,6 +110,7 @@
 		bottom: -.1em;
 
 	}
+*/
 
 	nav.drop ul li li a, nav.drop ul li .trigger:checked ~ a {
 
@@ -110,6 +118,12 @@
 
 	}
 	
+	nav.drop ul li a[href] {
+		
+		z-index: 3;
+		
+	}
+ 	
 	nav.drop ul li li li a, nav.drop ul li li .trigger:checked ~ a, .no-touch nav.drop ul li li a:hover {
 
 		background: #ddd;
@@ -118,16 +132,7 @@
 	
 	nav.drop ul li li a:after {
 		
-		content: '›';
-		bottom: auto;
-		font-size: 1em;
-		right: .7em;
-
-	}
-
-	nav.drop ul li li a[href]:after {
-		
-		display: none;		
+		content: '';
 
 	}
 
@@ -137,10 +142,20 @@
 
 	}
 	
+	nav.drop ul li {
+		
+		padding: 0 2em 0 0;
+		background: #eee url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAcAAAAHCAYAAADEUlfTAAAAJUlEQVR42mNgAILy8vL/DLgASBKnApgkVgXIkhgKiNKJ005s4gDLbCZBiSxfygAAAABJRU5ErkJggg==") no-repeat scroll center right;
+		background-position: calc(100% - .7em);
+		
+	}
+
 	nav.drop ul ul li {
 		
 		display: block;
-		padding: 0;
+		padding: 0 2em 0 0;
+		background: #eee url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAcAAAAHCAYAAADEUlfTAAAAJUlEQVR42mNgAILy8vL/DLgASBKnApgkVgXIkhgKiNKJ005s4gDLbCZBiSxfygAAAABJRU5ErkJggg==") no-repeat scroll center right;
+		background-position: calc(100% - .7em);
 		
 	}
 
@@ -212,6 +227,7 @@
 	nav.drop ul ul ul li {
 		
 		display: block;
+		padding: 0;
 		
 	}
 	
@@ -413,7 +429,7 @@
 			
 						<input type="reset" form="level2">
 			
-						<a>Middle Two</a>
+						<a href=asd>Middle Two also Link</a>
 					
 						<ul>
 							
@@ -443,7 +459,7 @@
 
 				<input type="reset" form="level1">
 			
-				<a>Top Two Long Text Long Text Long Text Long Text </a>
+				<a href=asd>Top Two Long Text Long Text Long Text Long Text </a>
 			
 				<ul>
 					
@@ -543,9 +559,9 @@
 
 <script>
 	
-if (!('ontouchstart' in window)) { // For no-touch devices CSS
+if (!('ontouchstart' in window)) { // CSS for no-touch devices
 
-	document.querySelector('body').classList.add('no-touch');
+// 	document.querySelector('body').classList.add('no-touch');
 
 }
 
