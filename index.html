@@ -28,7 +28,9 @@
 		
 		- √ background
 		
-		- support for both a link and a sub-nav parent
+		- √ support for both a link and a sub-nav parent
+		
+		- hide arrow from items without a child menu
 		
 		- clean up code
 		
@@ -46,6 +48,7 @@
 		max-width: 75em;
 		margin: 1em auto;
 		padding: 1em;
+		-webkit-font-smoothing: antialiased;
 		
 	}
 	
@@ -102,17 +105,90 @@
 		white-space: nowrap;
 		position: relative;
 		font-size: 1rem;
+		background: #fbfbfb;
+		font-size: 0;
 		
+	}
+
+	nav.drop ul li b.sub {
+		
+		display: inline-block;
+		padding: 1em;
+		font-size: 1rem;
+		background: #fbfbfb;
+
+	}
+
+	nav.drop ul li li b.sub {
+		
+		display: inline-block;
+		padding: 1em;
+		font-size: 1rem;
+		background-color: #eee;
+		float: right;
+		background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAcAAAAHCAYAAADEUlfTAAAAG0lEQVR42mNgwAfKy8v/48I4FeA0AacVDFQBAP9wJkE/KhUMAAAAAElFTkSuQmCC");
+
+	}
+
+	nav.drop ul li li b.sub:before {
+		
+		content: '';
+		display: block;
+		position: absolute;
+		background-color: #eee;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		left: 0;
+		z-index: 0;
+
+	}
+
+	nav.drop ul li li .trigger:checked ~ b.sub:before {
+		
+		background-color: #ddd;
+
+	}
+
+	nav.drop ul li li li b.sub {
+		
+		display: inline-block;
+		padding: 1em;
+		font-size: 1rem;
+		background-color: #ddd;
+
+	}
+
+	nav.drop ul li b.sub:after {
+		
+		content: '[]';
+		background: transparent url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAcAAAAHCAYAAADEUlfTAAAAG0lEQVR42mNgwAfKy8v/48I4FeA0AacVDFQBAP9wJkE/KhUMAAAAAElFTkSuQmCC") no-repeat scroll center right;
+		color: transparent;
+
+	}
+
+	nav.drop ul li li b.sub:after {
+		
+		position: absolute;
+		background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAcAAAAHCAYAAADEUlfTAAAAJUlEQVR42mNgAILy8vL/DLgASBKnApgkVgXIkhgKiNKJ005s4gDLbCZBiSxfygAAAABJRU5ErkJggg==");
+
+
 	}
 
 	nav.drop ul li a {
 		
-		padding: 1em 0 1em 1em;
-		white-space: nowrap;
-		display: block;
+		padding: 1em;
+/* 		white-space: nowrap; */
+		display: inline-block;
 		position: relative;
-		background: #fbfbfb;
+		font-size: 1rem;
 		
+	}
+	
+	nav.drop ul li a[href] {
+	
+		z-index: 3;
+
 	}
 	
 /*
@@ -127,12 +203,36 @@
 	}
 */
 
-	nav.drop ul li li a, nav.drop ul li .trigger:checked ~ a {
+	nav.drop ul li li a, nav.drop ul li .trigger:checked ~ a, nav.drop ul li .trigger:checked ~ b.sub {
 
+		background: #eee;
+		z-index: 1;
+
+	}
+	
+	nav.drop ul li li a[href], nav.drop ul li .trigger:checked ~ a[href] {
+		
+		z-index: 3;
+
+	}
+	
+	nav.drop ul li li li a, nav.drop ul li li .trigger:checked ~ a, nav.drop ul li li .trigger:checked ~ b.sub, .no-touch nav.drop ul li li:hover, .no-touch nav.drop ul li li:hover a {
+
+		background: #ddd;
+
+	}
+	
+	nav.drop ul ul li {
+		
+		display: block;
 		background: #eee;
 
 	}
 	
+	/* Arrows */
+	
+/*
+
 	nav.drop ul li .trigger:checked ~ a:not([href]) {
 		
 		
@@ -150,12 +250,6 @@
 		
 	}
  	
-	nav.drop ul li li li a, nav.drop ul li li .trigger:checked ~ a, .no-touch nav.drop ul li li a:hover {
-
-		background: #ddd;
-
-	}
-	
 	nav.drop ul li li .trigger:checked ~ a:not([href]) {
 		
 		margin-right: -2em;
@@ -186,12 +280,14 @@
 
 	nav.drop ul ul li {
 		
-		display: block;
 		padding: 0 2em 0 0;
 		background: #eee url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAcAAAAHCAYAAADEUlfTAAAAJUlEQVR42mNgAILy8vL/DLgASBKnApgkVgXIkhgKiNKJ005s4gDLbCZBiSxfygAAAABJRU5ErkJggg==") no-repeat scroll center right;
 		background-position: calc(100% - .7em);
 		
 	}
+*/
+
+	/* Arrows - End */
 
 	.no-touch nav.drop ul ul li {
 		
@@ -220,10 +316,26 @@
 		
 	}
 
+	nav.drop ul ul ul {
+		
+		background: #ddd;
+		
+	}
+
+/*
+	nav.drop ul ul:before {
+		
+		content: '-';
+		display: inline-block;
+		background: red;
+	
+	}
+*/
+	
 	nav.drop input.trigger:checked ~ ul, .no-touch nav.drop ul ul li:hover ul { /* Not '+', because the form reset button stands between them; Touch first, Desktop second */
 		
 		visibility: visible;
-		z-index: 2;
+		z-index: 4;
 		
 	}
 	
@@ -427,8 +539,10 @@
 
 				<input type="reset" form="level1">
 			
-				<a>Top One Long Text Long Text Long Text Long Text Long Text </a>
-			
+				<a>Top One Long Text Long Text Long Text Long Text Long Text</a>
+				
+				<b class="sub"></b>
+				
 				<ul>
 					
 					<li> 
@@ -439,6 +553,8 @@
 			
 						<a>Middle One (Longer)</a>
 					
+						<b class="sub"></b>
+				
 						<ul>
 							
 							<li> 
@@ -465,6 +581,8 @@
 			
 						<a href=asd>Middle Two also Link</a>
 					
+						<b class="sub"></b>
+				
 						<ul>
 							
 							<li> 
@@ -493,8 +611,10 @@
 
 				<input type="reset" form="level1">
 			
-				<a href=asd>Top Two Long Text Long Text Long Text Long Text </a>
+				<a href=asd>Top Two Long Text Long Text Long Text Long Text</a>
 			
+				<b class="sub"></b>
+				
 				<ul>
 					
 					<li> 
@@ -505,6 +625,8 @@
 			
 						<a>Middle Two</a>
 					
+						<b class="sub"></b>
+				
 						<ul>
 							
 							<li> 
@@ -535,6 +657,8 @@
 			
 				<a>Just 2 Levels</a>
 			
+				<b class="sub"></b>
+				
 				<ul>
 					
 					<li> 
@@ -561,6 +685,8 @@
 			
 				<a>Just 2 Levels</a>
 			
+				<b class="sub"></b>
+				
 				<ul>
 					
 					<li> 
@@ -579,6 +705,12 @@
 				
 			</li>
 
+			<li> 
+			
+				<a href="#">Without sub-menu</a>
+			
+			</li>
+
 		</ul>
 		
 	</nav>
@@ -593,10 +725,10 @@
 
 <script>
 	
-if (!('ontouchstart' in window)) { // CSS for no-touch devices
-
-// 	document.querySelector('body').classList.add('no-touch');
-
-}
+	if (!('ontouchstart' in window)) { // CSS for no-touch devices
+	
+// 		document.querySelector('body').classList.add('no-touch');
+	
+	}
 
 </script>
