@@ -6,7 +6,7 @@
 	
 		- √ visibility instead of display, to help pointing to level 3, CSS-only pointing to hovered menu without disappearing
 	
-		- test many 2nd level items tap on iPad 
+		- √ test many 2nd level items tap on iPad 
 		
 		- √ triggers to radio inputs; reset input over checked triggers, to uncheck them all 
 		
@@ -16,7 +16,7 @@
 		
 		- √ hamburger
 		
-		- ensure wider/taller menus than viewport/screen
+		- √ ensure wider/taller menus than viewport/screen
 		
 		- √ mobile-first, no-JS-first
 		
@@ -27,6 +27,14 @@
 		- √ arrows
 		
 		- √ background
+		
+		- √ support for both a link and a sub-nav parent
+		
+		- hide arrow from items without a child menu
+		
+		- clean up code
+		
+		- animation
 		
 -->
 
@@ -40,6 +48,7 @@
 		max-width: 75em;
 		margin: 1em auto;
 		padding: 1em;
+		-webkit-font-smoothing: antialiased;
 		
 	}
 	
@@ -66,6 +75,21 @@
 		font-size: 0;
 
 	}
+	
+/*
+	nav.drop ul .trigger:checked ~ ul:before {
+		
+		content: '';
+		display: block;
+		width: 2rem;
+		height: 3rem;
+		top: 0;
+		left: -2rem;
+		background: #ddd;
+		position: absolute;
+
+	}
+*/
 
 	nav.drop ul, nav.drop li {
 		
@@ -81,19 +105,93 @@
 		white-space: nowrap;
 		position: relative;
 		font-size: 1rem;
+		background: #fbfbfb;
+		font-size: 0;
 		
+	}
+
+	nav.drop ul li b.sub {
+		
+		display: inline-block;
+		padding: 1em;
+		font-size: 1rem;
+		background: #fbfbfb;
+
+	}
+
+	nav.drop ul li li b.sub {
+		
+		display: inline-block;
+		padding: 1em;
+		font-size: 1rem;
+		background-color: #eee;
+		float: right;
+		background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAcAAAAHCAYAAADEUlfTAAAAG0lEQVR42mNgwAfKy8v/48I4FeA0AacVDFQBAP9wJkE/KhUMAAAAAElFTkSuQmCC");
+
+	}
+
+	nav.drop ul li li b.sub:before {
+		
+		content: '';
+		display: block;
+		position: absolute;
+		background-color: #eee;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		left: 0;
+		z-index: 0;
+
+	}
+
+	nav.drop ul li li .trigger:checked ~ b.sub:before {
+		
+		background-color: #ddd;
+
+	}
+
+	nav.drop ul li li li b.sub {
+		
+		display: inline-block;
+		padding: 1em;
+		font-size: 1rem;
+		background-color: #ddd;
+
+	}
+
+	nav.drop ul li b.sub:after {
+		
+		content: '[]';
+		background: transparent url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAcAAAAHCAYAAADEUlfTAAAAG0lEQVR42mNgwAfKy8v/48I4FeA0AacVDFQBAP9wJkE/KhUMAAAAAElFTkSuQmCC") no-repeat scroll center right;
+		color: transparent;
+
+	}
+
+	nav.drop ul li li b.sub:after {
+		
+		position: absolute;
+		background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAcAAAAHCAYAAADEUlfTAAAAJUlEQVR42mNgAILy8vL/DLgASBKnApgkVgXIkhgKiNKJ005s4gDLbCZBiSxfygAAAABJRU5ErkJggg==");
+
+
 	}
 
 	nav.drop ul li a {
 		
-		padding: 1em 2em 1em 1em;
-		white-space: nowrap;
-		display: block;
+		padding: 1em;
+/* 		white-space: nowrap; */
+		display: inline-block;
 		position: relative;
-		background: #fbfbfb;
+		font-size: 1rem;
 		
 	}
 	
+	nav.drop ul li a[href] {
+	
+		z-index: 3;
+
+	}
+	
+/*
 	nav.drop ul li a:after {
 		
 		content: 'ˇ';
@@ -103,31 +201,66 @@
 		bottom: -.1em;
 
 	}
+*/
 
-	nav.drop ul li li a, nav.drop ul li .trigger:checked ~ a {
+	nav.drop ul li li a, nav.drop ul li .trigger:checked ~ a, nav.drop ul li .trigger:checked ~ b.sub {
 
 		background: #eee;
+		z-index: 1;
 
 	}
 	
-	nav.drop ul li li li a, nav.drop ul li li .trigger:checked ~ a, .no-touch nav.drop ul li li a:hover {
+	nav.drop ul li li a[href], nav.drop ul li .trigger:checked ~ a[href] {
+		
+		z-index: 3;
+
+	}
+	
+	nav.drop ul li li li a, nav.drop ul li li .trigger:checked ~ a, nav.drop ul li li .trigger:checked ~ b.sub, .no-touch nav.drop ul li li:hover, .no-touch nav.drop ul li li:hover a {
 
 		background: #ddd;
 
 	}
 	
-	nav.drop ul li li a:after {
+	nav.drop ul ul li {
 		
-		content: '›';
-		bottom: auto;
-		font-size: 1em;
-		right: .7em;
+		display: block;
+		background: #eee;
 
 	}
+	
+	/* Arrows */
+	
+/*
 
-	nav.drop ul li li a[href]:after {
+	nav.drop ul li .trigger:checked ~ a:not([href]) {
 		
-		display: none;		
+		
+		background: #eee url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAcAAAAHCAYAAADEUlfTAAAAG0lEQVR42mNgwAfKy8v/48I4FeA0AacVDFQBAP9wJkE/KhUMAAAAAElFTkSuQmCC") no-repeat scroll center right;
+		margin-right: -2em;
+		padding-right: 2em;
+		background-position: calc(100% - .8em);
+		
+	}
+	
+	nav.drop ul li a[href] {
+		
+		z-index: 3;
+		padding-right: 1em;
+		
+	}
+ 	
+	nav.drop ul li li .trigger:checked ~ a:not([href]) {
+		
+		margin-right: -2em;
+		background: #ddd url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAcAAAAHCAYAAADEUlfTAAAAJUlEQVR42mNgAILy8vL/DLgASBKnApgkVgXIkhgKiNKJ005s4gDLbCZBiSxfygAAAABJRU5ErkJggg==") no-repeat scroll center right;
+		background-position: calc(100% - .7em);
+	
+	}
+	
+	nav.drop ul li li a:after {
+		
+		content: '';
 
 	}
 
@@ -137,12 +270,24 @@
 
 	}
 	
-	nav.drop ul ul li {
+	nav.drop ul li {
 		
-		display: block;
-		padding: 0;
+		padding: 0 2em 0 0;
+		background: #fbfbfb url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAcAAAAHCAYAAADEUlfTAAAAG0lEQVR42mNgwAfKy8v/48I4FeA0AacVDFQBAP9wJkE/KhUMAAAAAElFTkSuQmCC") no-repeat scroll center right;
+		background-position: calc(100% - .8em);
 		
 	}
+
+	nav.drop ul ul li {
+		
+		padding: 0 2em 0 0;
+		background: #eee url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAcAAAAHCAYAAADEUlfTAAAAJUlEQVR42mNgAILy8vL/DLgASBKnApgkVgXIkhgKiNKJ005s4gDLbCZBiSxfygAAAABJRU5ErkJggg==") no-repeat scroll center right;
+		background-position: calc(100% - .7em);
+		
+	}
+*/
+
+	/* Arrows - End */
 
 	.no-touch nav.drop ul ul li {
 		
@@ -171,10 +316,26 @@
 		
 	}
 
+	nav.drop ul ul ul {
+		
+		background: #ddd;
+		
+	}
+
+/*
+	nav.drop ul ul:before {
+		
+		content: '-';
+		display: inline-block;
+		background: red;
+	
+	}
+*/
+	
 	nav.drop input.trigger:checked ~ ul, .no-touch nav.drop ul ul li:hover ul { /* Not '+', because the form reset button stands between them; Touch first, Desktop second */
 		
 		visibility: visible;
-		z-index: 2;
+		z-index: 4;
 		
 	}
 	
@@ -212,6 +373,8 @@
 	nav.drop ul ul ul li {
 		
 		display: block;
+		padding: 0;
+		background: #ddd;
 		
 	}
 	
@@ -228,7 +391,7 @@
 		cursor: pointer;
 		-webkit-appearance: none;
 		border-radius: 0;
-		z-index: 1;
+		z-index: 3;
 		padding: 0;
 
 	}
@@ -377,8 +540,10 @@
 
 				<input type="reset" form="level1">
 			
-				<a>Top One Long Text Long Text Long Text Long Text Long Text </a>
-			
+				<a>Top One Long Text Long Text Long Text Long Text Long Text</a>
+				
+				<b class="sub"></b>
+				
 				<ul>
 					
 					<li> 
@@ -389,6 +554,8 @@
 			
 						<a>Middle One (Longer)</a>
 					
+						<b class="sub"></b>
+				
 						<ul>
 							
 							<li> 
@@ -413,8 +580,10 @@
 			
 						<input type="reset" form="level2">
 			
-						<a>Middle Two</a>
+						<a href=asd>Middle Two also Link</a>
 					
+						<b class="sub"></b>
+				
 						<ul>
 							
 							<li> 
@@ -443,8 +612,10 @@
 
 				<input type="reset" form="level1">
 			
-				<a>Top Two Long Text Long Text Long Text Long Text </a>
+				<a href=asd>Top Two Long Text Long Text Long Text Long Text</a>
 			
+				<b class="sub"></b>
+				
 				<ul>
 					
 					<li> 
@@ -455,6 +626,8 @@
 			
 						<a>Middle Two</a>
 					
+						<b class="sub"></b>
+				
 						<ul>
 							
 							<li> 
@@ -485,6 +658,8 @@
 			
 				<a>Just 2 Levels</a>
 			
+				<b class="sub"></b>
+				
 				<ul>
 					
 					<li> 
@@ -511,6 +686,8 @@
 			
 				<a>Just 2 Levels</a>
 			
+				<b class="sub"></b>
+				
 				<ul>
 					
 					<li> 
@@ -529,26 +706,30 @@
 				
 			</li>
 
+			<li> 
+			
+				<a href="#">Without sub-menu</a>
+			
+			</li>
+
 		</ul>
 		
 	</nav>
 	
-<!--
 	<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
 
 	<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
 
 	<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
--->
 
 </header>
 
 <script>
 	
-if (!('ontouchstart' in window)) { // For no-touch devices CSS
-
-	document.querySelector('body').classList.add('no-touch');
-
-}
+	if (!('ontouchstart' in window)) { // CSS for no-touch devices
+	
+// 		document.querySelector('body').classList.add('no-touch');
+	
+	}
 
 </script>
