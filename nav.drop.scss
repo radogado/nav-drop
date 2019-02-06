@@ -1,0 +1,530 @@
+ul.n-list {
+	
+	padding: 0;
+	line-height: 1.5;
+	min-height: 1.5em;
+	margin: .75em 0 .75em 0;
+
+	&.n-list--indent {
+		
+		margin-left: 1.5em;
+	
+	}
+	
+	li {
+	
+		display: block;
+		position: relative;
+		width: 100%;
+		list-style: none;
+		word-break: break-word; // Overflow protection for long words
+		word-wrap: break-word;
+	
+	}
+	
+	&:not(.n-list--no-bullet):not(.n-list--inline) li {
+	
+		margin-left: 1em;
+		max-width: calc(100% - 1em);
+		
+		&:before {
+			
+			content: '•';
+			position: absolute;
+			margin-left: -.67em;
+			color: var(--list-bg);
+		    font-size: 1.5em;
+		    line-height: .9;
+    			
+		}
+		
+	}
+	
+	&.n-list--inline > li:first-child {
+		
+		margin-left: 0;
+	
+	}
+
+}
+
+.n-nav ul.n-list {
+	
+	&:not(.n-list--no-bullet):not(.n-list--inline) li {
+	
+		margin-left: 0;
+	    max-width: 100%;
+	
+	}
+	
+	li:before {
+		
+		display: none;
+	
+	}
+
+}
+
+.n-nav {
+
+	ul {
+	
+		margin: 0 0 0 -.5em;
+		margin: 0;
+		padding: 0;
+		display: inline-block;
+		width: auto;
+		list-style: none;
+		display: flex;
+	    flex-wrap: wrap;
+
+		li {
+		
+			margin: 0;
+		
+			&:last-child {
+		
+				margin-right: 0;
+		
+			}
+	
+		}
+	
+	}
+	
+}
+
+.n-drop {
+
+    color: #333;
+    color: var(--control-color, #333);
+    background-color: transparent;
+
+	ul {
+		
+		padding: 0;
+		margin: 0;
+		min-height: 0;
+		z-index: 1;
+	
+	}
+	
+	ul ul {
+		
+		padding: 0;
+		position: absolute;
+		left: 0;
+		top: 100%;
+		transition: transform .2s ease-in-out;
+	    transform-origin: top;
+		transform: scaleY(0);
+	
+	}
+	
+	ul ul ul {
+		
+		margin-left: 100%;
+		top: 0;
+	
+	}
+	
+	ul li {
+		
+		display: inline-block;
+		vertical-align: top;
+		margin: 0;
+		padding: 0;
+		box-sizing: border-box;
+		position: relative;
+		width: auto;
+		background-color: #fff;
+		background-color: var(--control-bg, #fff);
+		
+	}
+	
+	li:not([tabindex]) > ul ~ a {
+	
+		padding-right: 3em;
+	
+	}
+	
+	li > a {
+		
+		padding: .75em;
+		display: block;
+	
+	}
+	
+	a:focus, li > :focus {
+	
+		outline-offset: -7px;
+	
+	}
+	
+	a[href] {
+		
+		position: relative;
+	
+	}
+	
+	li:not([aria-haspopup]) > a {
+		
+		z-index: 0;
+		
+	}
+	
+	ul[role=menubar] li > a {
+		
+	    margin-right: 0;
+	    padding-right: .75em;
+		
+	}
+	
+	ul[role=menubar] li[aria-haspopup] > a {
+		
+	    margin-right: 0;
+		padding-right: .75em;
+		
+	}
+	
+	li li {
+		
+		display: block;
+		width: 100%;
+	
+	}
+	
+	ul li:not([aria-expanded]) > ul {
+		
+		min-height: 0;
+		max-height: 0;
+		overflow: hidden;
+		position: absolute;
+	
+	}
+	
+	ul li > :checked ~ ul, :focus ~ ul, 
+	a:focus ~ ul, ul li[aria-expanded] > ul, li li[aria-expanded] > ul, li li:not(:focus) :checked ~ ul {
+		
+		max-height: none;
+		overflow: visible;
+		opacity: 1;
+		z-index: 2;
+		background-color: #fff;
+		background-color: var(--control-bg, #fff);
+
+		transform: scaleY(1);
+		
+		ul {
+			
+			transform: scaleX(1);
+			transform-origin: left;
+			
+		}
+	
+	}
+	
+	ul li[aria-expanded] > ul, li li[aria-expanded] > ul, li li:not(:focus) :checked ~ ul {
+	
+		z-index: 2; // Problem with CSS-only input method
+	
+	}
+	
+	li > input {
+		
+		-webkit-appearance: none;
+		-moz-appearance: none;
+		display: block;
+		position: absolute;
+		width: 100%; // iOS doesn't work with left/right
+		height: 100%; 
+		border: none;
+		border-radius: 0;
+		right: 0;
+		z-index: 1;
+		width: 1.9em;
+		margin: 0;
+		font-size: inherit;
+		cursor: pointer;
+					
+	}
+	
+	li[aria-haspopup]:before {
+		
+		content: '';
+		position: absolute;
+		display: block;
+		right: 0;
+		top: 0;
+		width: 1.25em;
+		height: 100%;
+		
+	}
+	
+	ul.n-list:not(.n-list--no-bullet):not(.n-list--inline) li:before {
+	
+	    content: '';
+	
+	}
+	
+	&.n-nav ul.n-list li:before {
+	
+	    display: block;
+	    height: 100%;
+	
+	}
+
+	li[aria-haspopup]:before, li > input {
+
+		-webkit-mask: url("data:image/svg+xml,%3C%3Fxml version='1.0' encoding='UTF-8'%3F%3E%3Csvg version='1.1' viewBox='0 0 16 16' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cpolygon transform='translate(8 8) rotate(180) translate(-8 -8)' points='8 0 16 16 0 16' fill='%23000' fill-rule='nonzero'/%3E%3C/g%3E%3C/svg%3E%0A") center center no-repeat;
+		-webkit-mask-size: .4em;
+		background-color: transparent;
+		background-color: var(--control-color, #000);
+
+   	}
+   	
+   	li > input {
+	   	
+		-webkit-mask-size: .6em;
+	   	
+	}
+
+	&[data-ready] li > ul ~ a {
+		
+		background: none;
+		
+	}
+
+	li[aria-haspopup] {
+		
+		padding-right: 2em;
+					
+	}
+
+}
+
+@supports (-ms-ime-align:auto) { // Edge
+
+	.n-drop li[aria-haspopup]:before {
+			
+		background: transparent;
+		color: var(--control-color, #000) !important;
+	    content: "↓" !important;
+	    text-align: center;
+	    line-height: 2 !important;
+	
+	}
+	
+	.n-drop li li[aria-haspopup]:before {
+		
+		content: '→' !important;
+
+	}
+	
+
+}
+	
+@media (min-width: 600px) {
+
+	.n-drop li li {
+		
+		&[aria-haspopup]:before, > input {
+	
+		-webkit-mask-image: url("data:image/svg+xml,%3C%3Fxml version='1.0' encoding='UTF-8'%3F%3E%3Csvg version='1.1' viewBox='0 0 16 16' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cpolygon transform='translate(8 8) rotate(90) translate(-8 -8)' points='8 0 16 16 0 16' fill='%23000' fill-rule='nonzero'/%3E%3C/g%3E%3C/svg%3E%0A");
+    
+		}
+
+	}
+
+	html:not(.can-touch) { // Hover rules here
+		
+		.n-drop {
+		
+			ul li:not([aria-expanded]) ul ul {
+			
+				transition: .1s .2s;
+				opacity: 0;
+				position: absolute;
+			    transform: scaleX(0);
+				transform-origin: left;
+			
+			}
+			
+			> ul > li > ul li {
+				
+				background-color: #fff;
+				background-color: var(--control-bg, #fff);
+				
+			}
+	
+			> ul 		> li:hover > input:not(:checked) ~ ul,
+			> ul li ul 	> li:hover > input:not(:checked) ~ ul,
+			> ul > li:not([aria-haspopup]):hover > input:not(:checked) ~ ul,
+			> ul li:not([aria-haspopup]) ul li:hover > input:not(:checked) ~ ul {
+				
+				min-height: 0;
+				max-height: 0;
+				overflow: hidden;
+				z-index: 1;
+				position: absolute;
+	
+			}
+	
+			> ul > li:not([aria-haspopup]):hover > ul,
+			> ul 		> li:hover > ul,
+			> ul li ul 	> li:hover > ul,
+			ul ul li:not([aria-expanded]) :checked ~ ul,
+			> ul li:not([aria-haspopup]) ul li:hover ~ ul {
+				
+				max-height: none;
+				overflow: visible;
+				opacity: 1;
+				z-index: 2;
+				background-color: #fff;
+				background-color: var(--control-bg, #fff);
+				transform: scaleY(1);
+				
+			}
+			
+			> ul li ul li:hover ul {
+	
+				transition-delay: .2s;
+				transform: scaleX(1);
+	
+			}
+		
+		}
+
+	}
+
+	nav.n-drop li {
+		
+		white-space: nowrap;
+		
+	}
+	
+	// IE11
+	
+	_:-ms-input-placeholder, :root nav.n-drop li:hover ul {
+		
+		overflow: visible !important;
+		z-index: 2 !important;
+		transform: none !important;
+
+	}
+
+	_:-ms-input-placeholder, :root nav.n-drop input[type=checkbox] {
+		
+		display: none !important;
+
+	}
+
+	_:-ms-input-placeholder, :root nav.n-drop li ul ~ a:before {
+		
+		content: '↓';
+		position: absolute;
+		top: .75em;
+		right: .5em;
+		text-decoration: none !important;
+
+	}
+
+	_:-ms-input-placeholder, :root nav.n-drop li li ul ~ a:before {
+		
+		content: '→';
+
+	}
+
+}
+
+@media (max-width: 599.9px) {
+
+	.n-drop ul {
+	
+		li:not([aria-expanded]) > ul {
+			
+			position: static;
+		    width: calc(100% + 3em);
+		
+		}
+
+		ul {
+			
+			position: static;
+		    width: calc(100% + 3em);
+			padding-left: .5em;
+			overflow: hidden;
+			box-sizing: border-box;
+		
+			ul {
+				
+				margin: 0;	
+		
+			}
+
+		}
+	
+		li {
+			
+			width: 100%;
+		
+			> input, &[aria-haspopup] {
+				
+				background-position-y: 1.5em;
+			
+			}
+		
+			&[aria-haspopup] {
+				
+				padding-right: 3em;
+							
+			}
+	
+		}
+	
+		li[aria-haspopup][aria-expanded]:before {
+	
+			-webkit-mask-image: url("data:image/svg+xml,%3C%3Fxml version='1.0' encoding='UTF-8'%3F%3E%3Csvg version='1.1' viewBox='0 0 16 16' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cpolygon transform='translate(8 8) rotate(0) translate(-8 -8)' points='8 0 16 16 0 16' fill='%23000' fill-rule='nonzero'/%3E%3C/g%3E%3C/svg%3E%0A");
+	
+	   	}
+
+	}
+
+	.n-drop li > input, .n-drop li[aria-haspopup]:before {
+		
+		-webkit-mask-position-y: .75em;		
+		
+	}
+	
+	html:not([data-js]) .n-drop {
+		
+		width: 100%;
+		
+		ul li {
+			
+			display: flex;
+			flex-direction: column;
+			
+			a {
+				
+				order: -1;
+	
+			}
+			
+		}
+		
+		ul li:not([aria-expanded]) > ul {
+			
+			width: 100%;
+
+		}
+	
+	}
+
+	html:not([data-js]) .n-fold.n-fold--mobile:not([aria-expanded]) .n-fold--content {
+		
+		max-width: 100%;
+		
+	}
+
+}
