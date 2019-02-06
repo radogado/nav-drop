@@ -4,6 +4,48 @@
     
 /* Nav – start */
 
+document.body.setAttribute('data-js', 'true');
+
+// Real time touch detection to support devices with both touch and mouse. http://www.javascriptkit.com/dhtmltutors/sticky-hover-issue-solutions.shtml
+// To do: use an attribtue instead of class
+;(function(){
+
+    var isTouch = false; //var to indicate current input type (is touch versus no touch) 
+    var isTouchTimer;
+    var curRootClass = ''; //var indicating current document root class ("can-touch" or "")
+     
+    function addtouchclass(e) {
+
+        clearTimeout(isTouchTimer);
+        isTouch = true;
+        if (curRootClass != 'can-touch') { //add "can-touch' class if it's not already present
+
+            curRootClass = 'can-touch';
+            addClass(q('html'), curRootClass);
+
+        }
+
+        isTouchTimer = setTimeout(() => {isTouch = false}, 500); //maintain "istouch" state for 500ms so removetouchclass doesn't get fired immediately following a touch event
+
+    }
+     
+    function removetouchclass(e){
+
+        if (!isTouch && curRootClass === 'can-touch'){ //remove 'can-touch' class if not triggered by a touch event and class is present
+
+            isTouch = false;
+            curRootClass = '';
+            removeClass(q('html'), 'can-touch');
+
+        }
+
+    }
+     
+    document.addEventListener('mouseover', removetouchclass, false); //this event gets called when input type is everything from touch to mouse/ trackpad
+    document.addEventListener('touchstart', addtouchclass, false); //this event only gets called when input type is touch
+
+})();
+
 function closestElement(el, target) { // Thanks http://gomakethings.com/ditching-jquery/ – Accepts either a selector string or an actual element
 
     for ( ; el && el !== document; el = el.parentNode ) {
@@ -20,6 +62,12 @@ function closestElement(el, target) { // Thanks http://gomakethings.com/ditching
 
 }
 
+function addClass(el, className) {
+
+	el.classList.add(className);
+
+}
+
 function hasClass(el, className) {
 
 	return el.classList.contains(className);
@@ -29,6 +77,12 @@ function hasClass(el, className) {
 function q(selector) {
 
 	return document.querySelector(selector);
+
+};
+
+function qa(selector) {
+
+	return document.querySelectorAll(selector);
 
 };
 
