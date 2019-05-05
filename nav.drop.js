@@ -209,9 +209,9 @@ function animate(el, animation_code, duration, callback) { // Default duration =
 		
 	}
 	
-	function isDesktop(item) { // Checks the UL sub nav element
+	function isDesktop(nav) { // Checks the UL sub nav element
 		
-		return getComputedStyle(item).getPropertyValue('position') === 'absolute';
+		return !!getComputedStyle(nav).getPropertyValue('--desktop');
 		
 	}
 	
@@ -219,7 +219,7 @@ function animate(el, animation_code, duration, callback) { // Default duration =
 
 	function dropNavBlur(e) {
 	
-		if (navAnimating /* && isDesktop(el.querySelector('ul')) */) {
+		if (navAnimating) {
 			
 			return;
 			
@@ -232,9 +232,20 @@ function animate(el, animation_code, duration, callback) { // Default duration =
 		let el = e.target;
 		let item = el.tagName === 'LI' ? el.querySelector('ul') : el.parentElement.querySelector('ul');
 		
+		if (isDesktop(this_nav) && !!e.relatedTarget && !closestElement(e.relatedTarget, this_nav)) {
+			// if e.relatedTarget is not a child of this_nav, then the next focused item is elsewhere
+			this_nav.querySelectorAll('li').forEach((el) => {
+	
+				el.removeAttribute('aria-expanded');
+				
+			});
+			return;
+				
+		}
+
 		if (item) {
 			
-			if (item.parentNode.parentNode.querySelector('ul [aria-expanded]')) {
+			if (item.parentNode.parentNode.querySelector('ul [aria-expanded]')) { // To do: Unless it's the first/last item and user has back/forward tabbed away from it?
 	
 				return;
 	
@@ -242,19 +253,8 @@ function animate(el, animation_code, duration, callback) { // Default duration =
 	
 			item.parentElement.removeAttribute('aria-expanded');
 	
-			if (isDesktop(item) && !closestElement(e.relatedTarget, this_nav)) {
-				// if e.relatedTarget is not a child of this_nav, then the next focused item is elsewhere
-				this_nav.querySelectorAll('li').forEach((el) => {
-		
-					el.removeAttribute('aria-expanded');
-					
-				});
-				return;
-					
-			}
-
 		}
-
+		
 		// Close neighboring parent nav's sub navs.
 		el = e.target;
 		var target_parent = el.closest('[aria-haspopup]');
@@ -288,7 +288,7 @@ function animate(el, animation_code, duration, callback) { // Default duration =
 		var el = e.target.closest('.n-nav > ul > li');
 // To do: on LI focus, make it aria-expanded and focus its a		
 		
-		if (navAnimating /* && isDesktop(el.querySelector('ul')) */) {
+		if (navAnimating) {
 			
 			return;
 			
@@ -371,9 +371,10 @@ function animate(el, animation_code, duration, callback) { // Default duration =
 		e.stopPropagation();
 		// To do: also ancestors, also close when open
 		let el = e.target;
+		var this_nav = el.closest('.n-nav');
 
 		let item = el.tagName === 'LI' ? el.querySelector('ul') : el.parentElement.querySelector('ul');
-		if (isDesktop(item)) {
+		if (isDesktop(this_nav)) {
 
 			if (el.getAttribute('aria-expanded')) {
 				
@@ -383,7 +384,7 @@ function animate(el, animation_code, duration, callback) { // Default duration =
 					
 				} else {
 
-					if (isDesktop(item)) {
+					if (isDesktop(this_nav)) {
 	
 						el.removeAttribute('aria-expanded');
 					
@@ -411,7 +412,7 @@ function animate(el, animation_code, duration, callback) { // Default duration =
 
 				el.setAttribute('aria-expanded', true);
 
-				if (!isDesktop(item)) {
+				if (!isDesktop(this_nav)) {
 					
 					openItem(item);
 					

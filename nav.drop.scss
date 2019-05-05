@@ -326,6 +326,12 @@ ul.n-list {
 	
 @media (min-width: 600px) {
 
+	.n-drop {
+		
+		--desktop: true;
+	
+	}		
+		
 	.n-drop li li {
 		
 		&[aria-haspopup]:before, > input {
