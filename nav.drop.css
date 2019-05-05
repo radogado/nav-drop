@@ -255,3 +255,9 @@ ul.n-list {
       width: 100%; }
   html:not([data-js]) .n-fold.n-fold--mobile:not([aria-expanded]) .n-fold--content {
     max-width: 100%; } }
+
+@supports (-webkit-overflow-scrolling: touch) {
+  /* CSS specific to iOS devices */
+  .n-drop :focus {
+    outline-style: dotted;
+    outline-width: 1px; } }
