@@ -1,6 +1,6 @@
-##Drop down navigation##
+## Drop down navigation ##
 
-###Features###
+### Features ###
 
 * Up to 3 levels
 * Label can be link or text
@@ -18,7 +18,7 @@
 
 [Demo](http://radogado.github.io/nav.drop/)
 
-###Structure###
+### Structure ###
 
 	<nav class="n-nav n-drop">
 		<ul>
