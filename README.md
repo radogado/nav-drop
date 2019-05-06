@@ -2,8 +2,8 @@ Drop down navigation
 
 * Up to 3 levels
 * Label can be link or text
-* CSS-only accessibility on mobile, tablet/desktop with touch screen, mouse and tabbing
-* Accessibility on mobile, tablet/desktop with touch screen, mouse and tabbing
+* CSS-only accessibility on mobile and tablet/desktop with touch screen, mouse and tabbing
+* Accessibility on mobile and tablet/desktop with touch screen, mouse and tabbing
 * Customizable colors with a CSS variable
 * Customizable chevron with an SVG mask
 * Click outside to close
