@@ -1,4 +1,6 @@
-Drop down navigation
+##Drop down navigation##
+
+###Features###
 
 * Up to 3 levels
 * Label can be link or text
@@ -15,5 +17,27 @@ Drop down navigation
 * Only 2 KB CSS + 1.5 KB JS
 
 [Demo](http://radogado.github.io/nav.drop/)
+
+###Structure###
+
+	<nav class="n-nav n-drop">
+		<ul>
+			<li> 
+				<input type="checkbox">
+				<ul>
+					<li> 
+						<input type="checkbox">
+						<ul>
+							<li> 
+								<a href="link">First item's sub item 1's sub item 1</a>
+							</li>
+						</ul>
+						<a>First item's sub item 1</a>
+					</li>
+				</ul>
+				<a>First item</a>
+			</li>
+		</ul>
+	</nav>
 
 Exported from [natUIve](https://github.com/radogado/natuive)
