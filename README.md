@@ -10,6 +10,7 @@ Drop down navigation
 * Supporting dynamic addition of items
 * Animation
 * Blank design
+* Zoomable
 * No dependencies
 * Only 2 KB CSS + 1.5 KB JS
 
