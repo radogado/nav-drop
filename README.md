@@ -16,7 +16,7 @@
 * No dependencies
 * Only 2 KB CSS + 1.5 KB JS
 
-[Demo](http://radogado.github.io/nav.drop/)
+[Demo](https://radogado.github.io/nav.drop/)
 
 ### Structure ###
 
