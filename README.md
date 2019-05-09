@@ -6,7 +6,7 @@
 * Label can be link or text
 * CSS-only accessibility on mobile and tablet/desktop with touch screen, mouse and tabbing
 * Accessibility on mobile and tablet/desktop with touch screen, mouse and tabbing
-* Customizable colors with a CSS variable
+* Customizable colors with CSS variables
 * Customizable chevron with an SVG mask
 * Click outside to close
 * Supporting dynamic addition of items
