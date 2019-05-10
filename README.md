@@ -13,6 +13,7 @@
 * Animation
 * Blank design
 * Zoomable
+* Multi-line labels
 * No dependencies
 * Only 2 KB CSS + 1.5 KB JS
 
